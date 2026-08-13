@@ -21,13 +21,13 @@ In these videos, I break down what I learned, walk through BigQuery SQL concepts
 
 ## 🎥 Featured Video Walkthroughs
 
-### Part 1: Getting Started With SQL and BigQuery (Unlisted)
+### Part 1: Getting Started With SQL and BigQuery (Unlisted, 27 mins.)
 [![Part 1 Video Thumbnail](https://img.youtube.com/vi/RgFuIKwS2W0/maxresdefault.jpg)](https://youtu.be/RgFuIKwS2W0)
 
-### Part 2: Select, From & Where (Unlisted)
+### Part 2: Select, From & Where (Unlisted, 25 mins.)
 [![Part 2 Video Thumbnail](https://img.youtube.com/vi/sPqRmo2mhpc/maxresdefault.jpg)](https://youtu.be/sPqRmo2mhpc)
 
-### Part 3: Group By, Having & Count (Unlisted)
+### Part 3: Group By, Having & Count (Unlisted, 36 mins.)
 [![Part 3 Video Thumbnail](https://img.youtube.com/vi/Wh7QfRGJe30/maxresdefault.jpg)](https://youtu.be/Wh7QfRGJe30)
 
 > Click any thumbnail above or check out the links in the table to watch!
