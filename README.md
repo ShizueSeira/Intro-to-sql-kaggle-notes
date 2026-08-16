@@ -1,6 +1,6 @@
 # 📊 Kaggle Intro to SQL Notes & Video Walkthroughs
 
-Welcome, the repository tracks my journey, code solutions, and vlog-style walkthroughs as I complete the [Kaggle Intro to SQL Course](https://www.kaggle.com/learn/intro-to-sql). 
+Welcome! This repository tracks my journey, code solutions, and vlog-style walkthroughs as I complete the [Kaggle Intro to SQL Course](https://www.kaggle.com/learn/intro-to-sql). 
 
 In these videos, I break down what I learned, walk through BigQuery SQL concepts, and yap about dataset exploration! 🎙️✨
 
@@ -105,12 +105,54 @@ In these videos, I break down what I learned, walk through BigQuery SQL concepts
 [![Part 2 Video Thumbnail](https://img.youtube.com/vi/sPqRmo2mhpc/maxresdefault.jpg)](https://youtu.be/sPqRmo2mhpc)
 
 - **Notes:**
-  - `SELECT`
-  - `FROM`
-  - `WHERE`
-  - Formatting Notes
-  - Limits on Kaggle's regards to working on big datasets
-  - *Add notes here...*
+  #### A. `SELECT...FROM`
+  - **`SELECT`**: Specifies the column(s) you want to retrieve.
+  - **`FROM`**: Specifies the table source using the full path: `` `project_name.dataset_name.table_name` ``.
+    - **Crucial Rule:** The path in the `FROM` clause **must** be enclosed in backticks (`` ` ``). Single, double, or triple quotes will fail.
+  - **Advanced Syntax & Practices:**
+    - **Aggregates:** Functions like `COUNT()`, `SUM()`, `AVG()` can be used inside `SELECT`.
+    - **Dot Notation:** Use `table_name.column_name` to explicitly specify columns, which becomes vital when performing table joins.
+    - **Aliasing (`AS`):** Assign custom names to columns to improve readability (e.g., giving aggregated output columns clearer titles).
+
+  #### B. `WHERE` Clause
+  - Used to filter records by specifying conditions that rows must meet.
+  - **Comparison Operators:** `<`, `<=`, `>`, `>=`, `=`, `<>` or `!=`.
+  - **Logical Operators:** `AND`, `OR`, `NOT` to combine multiple conditions.
+  - **Range Filtering:** Use `BETWEEN ... AND ...` to capture values within an inclusive range.
+  - **List Filtering:** Use `IN (...)` to filter against a list of specific values.
+  - **Pattern Matching (`LIKE`):**
+    - `%` Wildcard: Matches 0 or more arbitrary characters.
+      ```sql
+      WHERE tags LIKE '%bigquery%'
+      ```
+      *(Matches any tag containing "bigquery" at the beginning, middle, or end).*
+    - `_` Wildcard: Matches exactly one character.
+
+  #### C. Query Formatting & Best Practices
+  - Store SQL queries inside **triple quotation marks (`"""`)** in Python. This treats the query as a multi-line string literal, preserving line breaks for better structure and visual readability.
+  - **Case Sensitivity:** SQL keywords are case-insensitive (`select` vs `SELECT`), but capitalizing SQL commands is standard industry best practice.
+  
+  ```python
+  query = """
+          SELECT city
+          FROM `bigquery-public-data.openaq.global_air_quality`
+          WHERE country = 'US'
+          """
+    ```
+  #### D. Kaggle Limits & Safety Configurations
+  - **Quota Limit:** Free Kaggle accounts have a **5 TB scan limit per 30-day rolling window**.
+  - **Safety Mechanism (`QueryJobConfig`):** Prevents accidental execution of massive queries that eat up your bandwidth limit.
+    ```python
+    # Set maximum allowed scan size to 10 GB (10**10 bytes)
+    safe_config = bigquery.QueryJobConfig(maximum_bytes_billed=10**10)
+
+    # Run query with safety configuration
+    query_job = client.query(query, job_config=safe_config)
+
+    # Convert results to a pandas DataFrame
+    results = query_job.to_dataframe()
+    print(results.head())
+    ```
 
 ---
 
