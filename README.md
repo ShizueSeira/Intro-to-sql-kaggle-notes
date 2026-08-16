@@ -14,7 +14,7 @@ In these videos, I break down what I learned, walk through BigQuery SQL concepts
 | **02** | **Select, From & Where** | [📓 View Notebook](https://github.com/ShizueSeira/Intro-to-sql-kaggle-notes/blob/main/exercise-select-from-where.ipynb) | [📺 Watch Video (Unlisted)](https://youtu.be/sPqRmo2mhpc) |
 | **03** | **Group By, Having & Count** | [📓 View Notebook](https://github.com/ShizueSeira/Intro-to-sql-kaggle-notes/blob/main/exercise-group-by-having-count.ipynb) | [📺 Watch Video (Unlisted)](https://youtu.be/Wh7QfRGJe30) |
 | **04** | **Order By** | [📓 View Notebook](https://github.com/ShizueSeira/Intro-to-sql-kaggle-notes/blob/main/exercise-order-by.ipynb) | [📺 Watch Video (Unlisted)](https://youtu.be/kf01xj073bg) |
-| **05** | **As & With** | - | ⏳ *Coming Soon* |
+| **05** | **As & With** | [📓 View Notebook](https://github.com/ShizueSeira/Intro-to-sql-kaggle-notes/blob/main/exercise-as-with.ipynb) | [📺 Watch Video (Unlisted)](https://youtu.be/toSMZayMrYE) |
 | **06** | **Joining Data** | - | ⏳ *Coming Soon* |
 
 ---
@@ -32,6 +32,9 @@ In these videos, I break down what I learned, walk through BigQuery SQL concepts
 
 ### Part 4: Order By (Unlisted, 44 mins.)
 [![Part 4 Video Thumbnail](https://img.youtube.com/vi/kf01xj073bg/maxresdefault.jpg)](https://youtu.be/kf01xj073bg)
+
+### Part 5: As & With (Unlisted, 66 mins.)
+[![Part 5 Video Thumbnail](https://img.youtube.com/vi/toSMZayMrYE/maxresdefault.jpg)](https://youtu.be/toSMZayMrYE)
 
 > Click any thumbnail above or check out the links in the table to watch!
 
