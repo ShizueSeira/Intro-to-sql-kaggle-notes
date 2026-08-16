@@ -15,7 +15,7 @@ In these videos, I break down what I learned, walk through BigQuery SQL concepts
 | **03** | **Group By, Having & Count** | [📓 View Notebook](https://github.com/ShizueSeira/Intro-to-sql-kaggle-notes/blob/main/exercise-group-by-having-count.ipynb) | [📺 Watch Video (Unlisted)](https://youtu.be/Wh7QfRGJe30) |
 | **04** | **Order By** | [📓 View Notebook](https://github.com/ShizueSeira/Intro-to-sql-kaggle-notes/blob/main/exercise-order-by.ipynb) | [📺 Watch Video (Unlisted)](https://youtu.be/kf01xj073bg) |
 | **05** | **As & With** | [📓 View Notebook](https://github.com/ShizueSeira/Intro-to-sql-kaggle-notes/blob/main/exercise-as-with.ipynb) | [📺 Watch Video (Unlisted)](https://youtu.be/toSMZayMrYE) |
-| **06** | **Joining Data** | - | ⏳ *Coming Soon* |
+| **06** | **Joining Data** | [📓 View Notebook](https://github.com/ShizueSeira/Intro-to-sql-kaggle-notes/blob/main/exercise-joining-data.ipynb) | [📺 Watch Video (Unlisted)](https://youtu.be/AMtgBqoLA6g) |
 
 ---
 
@@ -36,13 +36,17 @@ In these videos, I break down what I learned, walk through BigQuery SQL concepts
 ### Part 5: As & With (Unlisted, 66 mins.)
 [![Part 5 Video Thumbnail](https://img.youtube.com/vi/toSMZayMrYE/maxresdefault.jpg)](https://youtu.be/toSMZayMrYE)
 
+### Part 6: Joining Data (Unlisted, 75 mins.)
+[![Part 6 Video Thumbnail](https://img.youtube.com/vi/AMtgBqoLA6g/maxresdefault.jpg)](https://youtu.be/AMtgBqoLA6g)
+
 > Click any thumbnail above or check out the links in the table to watch!
 
 ---
 
-## 💡 What's Inside
+## 💡 What's Inside & Resources
 - **Jupyter Notebooks:** Complete Kaggle exercises using Google BigQuery and Python (`google.cloud.bigquery`).
 - **Vlog Walkthroughs:** Casual, raw discussions on SQL logic, dataset exploration, and common pitfalls for beginners.
+- **Reference Docs:** [BigQuery Date and Time Functions Documentation](https://docs.cloud.google.com/bigquery/docs/reference/legacy-sql#dayofweek)
 
 ---
 
