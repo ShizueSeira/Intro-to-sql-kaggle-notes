@@ -160,10 +160,43 @@ In these videos, I break down what I learned, walk through BigQuery SQL concepts
 [![Part 3 Video Thumbnail](https://img.youtube.com/vi/Wh7QfRGJe30/maxresdefault.jpg)](https://youtu.be/Wh7QfRGJe30)
 
 - **Notes:**
-  - `GROUP BY`
-  - `HAVING`
-  - `COUNT()`
-  - *Add notes here...*
+  #### A. `COUNT()`
+  - Returns the number of non-null records/rows for a specified column.
+  - **Syntax / Usage:**
+    - `COUNT(column_name)` – Counts non-null entries in that specific column.
+    - `COUNT(1)` or `COUNT(*)` – Counts all records/rows regardless of whether individual columns contain `NULL` values. Best used when you are unsure which column to pass to `COUNT()`.
+  
+  #### B. `GROUP BY`
+  - Groups rows that share the same values in specified columns into summary rows.
+  - **Aggregations:** When `COUNT()` (or other aggregate functions like `SUM()`, `AVG()`) is combined with a `GROUP BY` clause, it calculates metrics independently for each distinct group.
+  - **Golden Rule / Best Practice:** Every column selected in your `SELECT` statement **must** either:
+    1. Be explicitly listed in the `GROUP BY` clause, **or**
+    2. Be wrapped inside an aggregate function (e.g., `COUNT()`, `SUM()`, `AVG()`).
+    - *Why?* Including an un-aggregated column that isn't grouped creates ambiguity (the engine doesn't know which row value to return for that group), resulting in an error.
+
+  #### C. `HAVING`
+  - Used to filter groups **after** they have been aggregated by `GROUP BY`.
+  - **Difference between `WHERE` and `HAVING`:**
+    - `WHERE` filters individual rows **before** any grouping or aggregation takes place.
+    - `HAVING` filters aggregated group records **after** `GROUP BY` is applied.
+  - **Example Query & Visual Walkthrough:**
+    ```sql
+    SELECT author, COUNT(1) AS total_posts
+    FROM `bigquery-public-data.hacker_news.comments`
+    GROUP BY author
+    HAVING COUNT(1) > 100
+    ```
+    - **How it works step-by-step:**
+      1. `GROUP BY author` aggregates all records matching the same author name together.
+      2. `COUNT(1)` calculates the total number of posts associated with that author after grouping is complete.
+         - *Example:* If `'john'` appears in row 1 and row 14, `GROUP BY` collapses these into a single row for `'john'` with `total_posts = 2`.
+      3. `HAVING COUNT(1) > 100` filters out any grouped records that do not meet the condition.
+         - Since `'john'` only has 2 posts, his record is filtered out and will not appear in the final output.
+         - An author with 101 posts satisfies the condition (`101 > 100`) and will be displayed in the results.
+
+  #### D. Aliasing (`AS`)
+  - Assigns a temporary name to a column or table to make query results cleaner and easier to read (e.g., `COUNT(1) AS total_posts`).
+  - *(Note: Though detailed in Part 3 of the course, aliasing concepts are introduced in Part 2 under `SELECT` practices).*
 
 ---
 
