@@ -1,6 +1,6 @@
 # 📊 Kaggle Intro to SQL Notes & Video Walkthroughs
 
-Welcome! This repository tracks my journey, code solutions, and vlog-style walkthroughs as I complete the [Kaggle Intro to SQL Course](https://www.kaggle.com/learn/intro-to-sql). 
+Welcome, the repository tracks my journey, code solutions, and vlog-style walkthroughs as I complete the [Kaggle Intro to SQL Course](https://www.kaggle.com/learn/intro-to-sql). 
 
 In these videos, I break down what I learned, walk through BigQuery SQL concepts, and yap about dataset exploration! 🎙️✨
 
@@ -25,7 +25,8 @@ In these videos, I break down what I learned, walk through BigQuery SQL concepts
 [![Part 1 Video Thumbnail](https://img.youtube.com/vi/RgFuIKwS2W0/maxresdefault.jpg)](https://youtu.be/RgFuIKwS2W0)
 
 - **Notes:**
-  #### A. BigQuery Commands
+  #### A. What is BigQuery & Core Python Commands
+  - **Google BigQuery:** A managed cloud web service and enterprise data warehouse that lets you run standard SQL queries on massive datasets quickly.
   - **Import BigQuery in Python:**
     ```python
     from google.cloud import bigquery
@@ -68,7 +69,7 @@ In these videos, I break down what I learned, walk through BigQuery SQL concepts
 
   ![BigQuery Data Hierarchy](https://storage.googleapis.com/kaggle-media/learn/images/biYqbUB.png)
 
-  > *As shown above, requests must follow this hierarchy: start with a Client object, request the Project and Dataset, and finally request the Table.*
+  > *As shown above, requests must follow the hierarchy: start with a Client object, request the Project and Dataset, and finally request the Table.*
 
   #### C. Table Schema
   - Defines the structure of the table using `table.schema`.
@@ -83,6 +84,20 @@ In these videos, I break down what I learned, walk through BigQuery SQL concepts
     - `'Story title'` – Column description.
     - `()` *(5th element)* – Child or nested schema fields for `RECORD` or `STRUCT` data types. An empty tuple `()` means there are no child/tuple fields.
     - `None` *(6th element)* – Policy tags for column-level security. `None` indicates no policy tags are assigned.
+
+  #### D. Previewing Data (`list_rows`)
+  - **Preview top rows:**
+    ```python
+    client.list_rows(table, max_results=5).to_dataframe()
+    ```
+    - `table`: The target BigQuery table object.
+    - `max_results=5`: Limits the number of records returned to 5.
+    - `.to_dataframe()`: Converts the BigQuery `RowIterator` object into a pandas `DataFrame`.
+  - **Preview specific columns:**
+    ```python
+    client.list_rows(table, selected_fields=table.schema[:1], max_results=5).to_dataframe()
+    ```
+    - `selected_fields=table.schema[:1]`: Selects only specific fields (in current case, slicing the first column from the schema).
 
 ---
 
