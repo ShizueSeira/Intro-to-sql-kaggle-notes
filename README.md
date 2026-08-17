@@ -288,7 +288,7 @@ In these videos, I break down what I learned, walk through BigQuery SQL concepts
   ![CTE Visual Example](https://storage.googleapis.com/kaggle-media/learn/images/3xQZM4p.png)
 
   - **How a CTE Works Step-by-Step:**
-    1. **Define the CTE (`WITH...AS (...)`):** Write the CTE definition using `WITH cte_name AS (...)` with the inner query enclosed in parentheses `()`. This constructs your desired temporary table first.
+    1. **Define the CTE (`WITH...AS (...)`):** Write the CTE definition using `WITH cte_name AS (...)` with the inner query enclosed in parentheses `()`. The CTE constructs your desired temporary table first.
     2. **Query the CTE:** Write your main query directly below, referencing the temporary table name specified in Step 1.
 
   - **Example Query & Walkthrough:**
@@ -343,7 +343,7 @@ In these videos, I break down what I learned, walk through BigQuery SQL concepts
 - **Notes:**
   #### A. Core Concepts: `JOIN`, `ON`, and `INNER JOIN`
   - **`JOIN`:** Crucial for relational databases with multiple related tables. One table originates in the `FROM` clause (the primary/parent table), while the second table is specified in the `JOIN` clause. 
-    > *Note:* While other types exist (e.g., `LEFT JOIN`, `RIGHT JOIN`), this course focuses specifically on `INNER JOIN`.
+    > *Note:* While other types exist (e.g., `LEFT JOIN`, `RIGHT JOIN`), The course focuses specifically on `INNER JOIN`.
   - **`ON`:** Specifies the matching criteria between tables, linking the identifier column in the first table to the corresponding column in the second table.
   - **`INNER JOIN`:** Returns only the records that have matching identifiers present in **both** tables. If a record in Table A lacks a matching ID in Table B (or vice versa), it will be excluded from the final output.
 
