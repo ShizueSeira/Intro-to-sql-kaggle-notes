@@ -208,6 +208,15 @@ In these videos, I break down what I learned, walk through BigQuery SQL concepts
     2. Be wrapped inside an aggregate function (e.g., `COUNT()`, `SUM()`, `AVG()`).
     - *Why?* Including an un-aggregated column that isn't grouped creates ambiguity (the engine doesn't know which row value to return for that group), resulting in an error.
 
+  - **Valid Example Query (`query_good`):**
+    ```sql
+    SELECT parent, COUNT(id)
+    FROM `bigquery-public-data.hacker_news.full`
+    GROUP BY parent
+    ```
+    - *Applying Rule 1:* `parent` is explicitly listed in the `GROUP BY` clause because we want to aggregate rows with matching `parent` values.
+    - *Applying Rule 2:* `COUNT(id)` wraps the `id` column inside an aggregate function, displaying the total count of records corresponding to each `parent` value.
+
   #### C. `HAVING`
   - Used to filter groups **after** they have been aggregated by `GROUP BY`.
   - **Difference between `WHERE` and `HAVING`:**
@@ -231,7 +240,7 @@ In these videos, I break down what I learned, walk through BigQuery SQL concepts
   #### D. Aliasing (`AS`)
   - Assigns a temporary name to a column or table to make query results cleaner and easier to read (e.g., `COUNT(1) AS total_posts`).
   - *(Note: Though detailed in Part 3 of the course, aliasing concepts are introduced in Part 2 under `SELECT` practices).*
-
+    
 ---
 
 ### Part 4: Order By (Unlisted, 44 mins.)
