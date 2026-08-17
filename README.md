@@ -343,9 +343,9 @@ In these videos, I break down what I learned, walk through BigQuery SQL concepts
 - **Notes:**
   #### A. Core Concepts: `JOIN`, `ON`, and `INNER JOIN`
   - **`JOIN`:** Crucial for relational databases with multiple related tables. One table originates in the `FROM` clause (the primary/parent table), while the second table is specified in the `JOIN` clause. 
-    > *Note:* While other types exist (e.g., `LEFT JOIN`, `RIGHT JOIN`), the course focuses specifically on `INNER JOIN`.
+    > *Note:* While other types exist (e.g., `LEFT JOIN`, `RIGHT JOIN`), this course focuses specifically on `INNER JOIN`.
   - **`ON`:** Specifies the matching criteria between tables, linking the identifier column in the first table to the corresponding column in the second table.
-  - **`INNER JOIN`:** Returns only the records that have matching identifiers present in **both** tables. If a record in Table A lacks a matching ID in Table B (or vice versa), the record will be excluded from the final output.
+  - **`INNER JOIN`:** Returns only the records that have matching identifiers present in **both** tables. If a record in Table A lacks a matching ID in Table B (or vice versa), it will be excluded from the final output.
 
   #### B. Practical Example (Stack Overflow BigQuery Experts)
   ```python
@@ -364,6 +364,10 @@ In these videos, I break down what I learned, walk through BigQuery SQL concepts
     - **Dot Notation & Aliases:** Table aliases (`p_q` and `p_a`) are used alongside dot notation to cleanly reference columns from specific tables.
     - **Filtering:** The `WHERE` clause ensures only questions tagged with `'bigquery'` are considered.
     - **Aggregation:** Groups results by `user_id` (`owner_user_id`) to count how many answers each user provided (`number_of_answers`).
+
+#### C. Query Result
+  ![Part 6 Final Query Result](https://github.com/ShizueSeira/Intro-to-sql-kaggle-notes/blob/main/result_code_part6_final.png?raw=true)
+  
 ---
 
 > Click any thumbnail above or check out the links in the table to watch!
