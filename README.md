@@ -280,11 +280,49 @@ In these videos, I break down what I learned, walk through BigQuery SQL concepts
 [![Part 5 Video Thumbnail](https://img.youtube.com/vi/toSMZayMrYE/maxresdefault.jpg)](https://youtu.be/toSMZayMrYE)
 
 - **Notes:**
-  - `WITH`
-  - `AS`
-  - Common Table Expressions (CTEs)
-  - *Add notes here...*
+  #### A. Common Table Expressions (CTEs) & `WITH...AS`
+  - Combining `WITH` and `AS` allows you to create a **Common Table Expression (CTE)**.
+  - **What is a CTE?** A temporary named result set created to simplify and organize complex queries by breaking them down into smaller, modular steps.
 
+  #### B. CTE Process & Visual Demonstration
+  ![CTE Visual Example](https://storage.googleapis.com/kaggle-media/learn/images/3xQZM4p.png)
+
+  - **How a CTE Works Step-by-Step:**
+    1. **Define the CTE (`WITH...AS (...)`):** Write the CTE definition using `WITH cte_name AS (...)` with the inner query enclosed in parentheses `()`. This constructs your desired temporary table first.
+    2. **Query the CTE:** Write your main query directly below, referencing the temporary table name specified in Step 1.
+
+  - **Example Query & Walkthrough:**
+    ```sql
+    WITH Seniors AS (
+        SELECT ID, Name
+        FROM `pet_data.pets`
+        WHERE Years_old > 5
+    )
+    SELECT ID
+    FROM Seniors
+    ```
+    - **Step 1 Execution (`Seniors`):** Filters the `pets` table for records where `Years_old > 5` and temporarily stores `ID` and `Name` into the `Seniors` CTE.
+    - **Step 2 Execution:** Selects `ID` directly from the newly created `Seniors` CTE table, yielding the final result (IDs `2` and `4`).
+
+  #### C. Key Rules & Scope
+  - A CTE exists **only** during the execution of the query it is attached to.
+  - It cannot be referenced or reused in subsequent, separate queries.
+
+  #### D. Practical CTE Example (Bitcoin Transactions)
+  ```python
+  # Query to select the number of transactions per date, sorted by date
+  query_with_CTE = """
+                    WITH time AS
+                    (
+                       SELECT DATE(block_timestamp) AS trans_date
+                       FROM `bigquery-public-data.crypto_bitcoin.transactions`
+                    )
+                    SELECT COUNT(1) AS transactions,
+                           trans_date
+                    FROM time
+                    GROUP BY trans_date
+                    ORDER BY trans_date
+                    """
 ---
 
 ### Part 6: Joining Data (Unlisted, 75 mins.)
