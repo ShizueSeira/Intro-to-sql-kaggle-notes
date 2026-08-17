@@ -109,16 +109,66 @@ In these videos, I break down what I learned, walk through BigQuery SQL concepts
   - **`SELECT`**: Specifies the column(s) you want to retrieve.
   - **`FROM`**: Specifies the table source using the full path: `` `project_name.dataset_name.table_name` ``.
     - **Crucial Rule:** The path in the `FROM` clause **must** be enclosed in backticks (`` ` ``). Single, double, or triple quotes will fail.
+    ```python
+    query = """
+            SELECT score, title
+            FROM `bigquery-public-data.hacker_news.full`
+            """
+    ```
+    - *Explanation:* Selects the `score` and `title` columns from the `full` table within the `hacker_news` dataset inside the `bigquery-public-data` project.
+
   - **Advanced Syntax & Practices:**
     - **Aggregates:** Functions like `COUNT()`, `SUM()`, `AVG()` can be used inside `SELECT`.
-    - **Dot Notation:** Use `table_name.column_name` to explicitly specify columns, which becomes vital when performing table joins.
-    - **Aliasing (`AS`):** Assign custom names to columns to improve readability (e.g., giving aggregated output columns clearer titles).
+    - **Dot Notation (`table_name.column_name`):** Explicitly specifies which table a column belongs to, which is vital when performing table joins.
+      - *Sneak Peek / Example (Part 6 Preview):*
+        ```sql
+        SELECT L.license, COUNT(1) AS number_of_files
+        FROM `bigquery-public-data.github_repos.sample_files` AS sf
+        INNER JOIN `bigquery-public-data.github_repos.licenses` AS L 
+            ON sf.repo_name = L.repo_name
+        GROUP BY L.license
+        ORDER BY number_of_files DESC
+        ```
+      - *Breakdown of Dot Notation & Aliasing:*
+        - `sample_files` is aliased as `sf` in the `FROM` clause.
+        - `licenses` is aliased as `L` in the `INNER JOIN` clause.
+        - Instead of writing full table names, dot notation uses aliases (e.g., `L.license` refers to the `license` column inside the `licenses` table).
+    - **Aliasing (`AS`):** Assigns custom names to columns or tables to improve readability.
+      ```sql
+      SELECT COUNT(1) AS Count_of_Deleted_Comments
+      FROM `bigquery-public-data.hacker_news.full`
+      WHERE deleted = TRUE
+      ```
+      - *Aggregate Focus:* `COUNT(1)` counts the number of records meeting the `WHERE` condition.
+      - *Aliasing Focus:* Replaces default output headers (like `f0_`) with a clean, descriptive title (`Count_of_Deleted_Comments`).
 
   #### B. `WHERE` Clause
   - Used to filter records by specifying conditions that rows must meet.
   - **Comparison Operators:** `<`, `<=`, `>`, `>=`, `=`, `<>` or `!=`.
-  - **Logical Operators:** `AND`, `OR`, `NOT` to combine multiple conditions.
-  - **Range Filtering:** Use `BETWEEN ... AND ...` to capture values within an inclusive range.
+    ```sql
+    SELECT DISTINCT(country)
+    FROM `bigquery-public-data.openaq.global_air_quality`
+    WHERE unit = 'ppm'
+    ```
+    - *Explanation:* Selects countries from the `global_air_quality` table where `unit` is `'ppm'`. `DISTINCT()` eliminates duplicate country names from the final result.
+
+  - **Logical Operators (`AND`, `OR`, `NOT`):** Used to combine multiple conditions in a `WHERE` clause.
+    - **`AND` Operator:** Requires **both** statements to be true for a record to be selected.
+    - **`OR` Operator:** Requires **at least one** statement to be true.
+    - **`NOT` Operator:** Inverts the truth value of a condition.
+
+  - **Range Filtering (`BETWEEN ... AND ...`):** Captures values within an inclusive boundary.
+    ```sql
+    SELECT country_name, AVG(value) AS avg_ed_spending_pct
+    FROM `bigquery-public-data.world_bank_intl_education.international_education`
+    WHERE indicator_code = 'SE.XPD.TOTL.GD.ZS' 
+      AND year BETWEEN 2010 AND 2017
+    GROUP BY country_name
+    ORDER BY avg_ed_spending_pct DESC
+    ```
+    - *Logical Operator Focus (`AND`):* Combines two distinct conditions (`indicator_code = ...` **AND** `year BETWEEN ...`). Both statements must evaluate to `TRUE` for a row to be included.
+    - *Range Filtering Focus (`BETWEEN`):* Restricts records to years 2010 through 2017 inclusive (both 2010 and 2017 are valid).
+
   - **List Filtering:** Use `IN (...)` to filter against a list of specific values.
   - **Pattern Matching (`LIKE`):**
     - `%` Wildcard: Matches 0 or more arbitrary characters.
@@ -138,22 +188,6 @@ In these videos, I break down what I learned, walk through BigQuery SQL concepts
           FROM `bigquery-public-data.openaq.global_air_quality`
           WHERE country = 'US'
           """
-    ```
-  #### D. Kaggle Limits & Safety Configurations
-  - **Quota Limit:** Free Kaggle accounts have a **5 TB scan limit per 30-day rolling window**.
-  - **Safety Mechanism (`QueryJobConfig`):** Prevents accidental execution of massive queries that eat up your bandwidth limit.
-    ```python
-    # Set maximum allowed scan size to 10 GB (10**10 bytes)
-    safe_config = bigquery.QueryJobConfig(maximum_bytes_billed=10**10)
-
-    # Run query with safety configuration
-    query_job = client.query(query, job_config=safe_config)
-
-    # Convert results to a pandas DataFrame
-    results = query_job.to_dataframe()
-    print(results.head())
-    ```
-
 ---
 
 ### Part 3: Group By, Having & Count (Unlisted, 36 mins.)
