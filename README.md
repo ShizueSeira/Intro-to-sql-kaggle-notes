@@ -247,11 +247,33 @@ In these videos, I break down what I learned, walk through BigQuery SQL concepts
 [![Part 4 Video Thumbnail](https://img.youtube.com/vi/kf01xj073bg/maxresdefault.jpg)](https://youtu.be/kf01xj073bg)
 
 - **Notes:**
-  - `ORDER BY`
-  - Dates
-  - `EXTRACT`
-  - *Add notes here...*
+  #### A. `ORDER BY`
+  - Sorts query results based on one or more specified columns.
+  - **Sorting Order:**
+    - **Ascending (`ASC` - Default):** Sorts from lowest to highest (1 to 9) or alphabetically (A to Z).
+    - **Descending (`DESC`):** Reverses the order from highest to lowest or reverse alphabetically (Z to A).
+  - **Visual Example:**
+    ![ORDER BY Visual Example](https://storage.googleapis.com/kaggle-media/learn/images/IElLJrR.png)
+    - *Explanation:* In the image above, sorting the animal column in descending order (`ORDER BY animal DESC`) places **Rabbit** first (Z to A), followed by **Dog**, and then **Cat**. Without `DESC`, the default ascending order places **Cat** first, followed by **Dog**, then **Rabbit**.
 
+  #### B. Date & Datetime Data Types
+  - BigQuery primarily uses two formats to handle temporal data:
+    - **`DATE` Format:** `YYYY-[M]M-[D]D`
+      - Features a 4-digit year, 1-to-2 digit month, and 1-to-2 digit day.
+      - *Example:* `2024-06-17` represents **June 17, 2024**.
+    - **`DATETIME` Format:** `YYYY-[M]M-[D]D hh:mm:ss`
+      - Extends the date format by adding time details in 2-digit hours, minutes, and seconds.
+      - *Example:* `2024-06-17 14:30:00` represents **June 17, 2024 at 2:30:00 PM**.
+
+  #### C. `EXTRACT()` Function
+  - Extracts specific date components (e.g., `YEAR`, `MONTH`, `DAY`, `WEEK`, `DAYOFWEEK`) from a `DATE` or `DATETIME` field.
+  - **Visual Example:**
+    ![EXTRACT Function Visual Example](https://storage.googleapis.com/kaggle-media/learn/images/vhvHIh0.png)
+    - **Key Examples from Diagram:**
+      1. `EXTRACT(DAY FROM Date) AS Day` on *Dr. Harris Bonkers* (`2019-01-08`) extracts **`8`** (from the `DD` component).
+      2. `EXTRACT(WEEK FROM Date) AS Week` on *Tom* (`2019-05-16`) extracts **`19`**, as May 16th falls in the 19th week of 2019.
+
+  > **Resource:** Check out the official [BigQuery Date and Time Functions Documentation](https://docs.cloud.google.com/bigquery/docs/reference/legacy-sql#datetimefunctions) for additional date extraction parameters and functions!
 ---
 
 ### Part 5: As & With (Unlisted, 66 mins.)
