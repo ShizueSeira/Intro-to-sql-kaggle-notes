@@ -1,6 +1,6 @@
 # 📊 Kaggle Intro to SQL Notes & Video Walkthroughs
 
-Welcome! This repository tracks my journey, code solutions, and vlog-style walkthroughs as I complete the [Kaggle Intro to SQL Course](https://www.kaggle.com/learn/intro-to-sql). 
+Welcome! The repository tracks my journey, code solutions, and vlog-style walkthroughs as I complete the [Kaggle Intro to SQL Course](https://www.kaggle.com/learn/intro-to-sql). 
 
 In these videos, I break down what I learned, walk through BigQuery SQL concepts, and yap about dataset exploration! 🎙️✨
 
@@ -8,7 +8,7 @@ In these videos, I break down what I learned, walk through BigQuery SQL concepts
 
 ## 🚀 Course Progress & Exercises
 
-| Part | Topic | Notebook Link | Video Walkthrough |
+| Part | Topic | Notebook Link of Exercises | Video Walkthrough |
 | :---: | :--- | :--- | :--- |
 | **01** | **Getting Started With SQL & BigQuery** | [📓 View Notebook P1](https://github.com/ShizueSeira/Intro-to-sql-kaggle-notes/blob/main/exercise-getting-started-with-sql-and-bigquery.ipynb) | [📺 Watch Video P1](https://youtu.be/RgFuIKwS2W0) |
 | **02** | **Select, From & Where** | [📓 View Notebook P2](https://github.com/ShizueSeira/Intro-to-sql-kaggle-notes/blob/main/exercise-select-from-where.ipynb) | [📺 Watch Video P2](https://youtu.be/sPqRmo2mhpc) |
@@ -179,7 +179,7 @@ In these videos, I break down what I learned, walk through BigQuery SQL concepts
     - `_` Wildcard: Matches exactly one character.
 
   #### C. Query Formatting & Best Practices
-  - Store SQL queries inside **triple quotation marks (`"""`)** in Python. This treats the query as a multi-line string literal, preserving line breaks for better structure and visual readability.
+  - Store SQL queries inside **triple quotation marks (`"""`)** in Python. SQL treats the query as a multi-line string literal, preserving line breaks for better structure and visual readability.
   - **Case Sensitivity:** SQL keywords are case-insensitive (`select` vs `SELECT`), but capitalizing SQL commands is standard industry best practice.
   
   ```python
@@ -229,7 +229,7 @@ In these videos, I break down what I learned, walk through BigQuery SQL concepts
     GROUP BY author
     HAVING COUNT(1) > 100
     ```
-    - **How it works step-by-step:**
+    - **How the query works step-by-step:**
       1. `GROUP BY author` aggregates all records matching the same author name together.
       2. `COUNT(1)` calculates the total number of posts associated with that author after grouping is complete.
          - *Example:* If `'john'` appears in row 1 and row 14, `GROUP BY` collapses these into a single row for `'john'` with `total_posts = 2`.
@@ -306,7 +306,7 @@ In these videos, I break down what I learned, walk through BigQuery SQL concepts
 
   #### C. Key Rules & Scope
   - A CTE exists **only** during the execution of the query it is attached to.
-  - It cannot be referenced or reused in subsequent, separate queries.
+  - CTE cannot be referenced or reused in subsequent, separate queries.
 
   #### D. Practical CTE Example (Chicago Taxi Trips)
   ```python
@@ -341,22 +341,38 @@ In these videos, I break down what I learned, walk through BigQuery SQL concepts
 [![Part 6 Video Thumbnail](https://img.youtube.com/vi/AMtgBqoLA6g/maxresdefault.jpg)](https://youtu.be/AMtgBqoLA6g)
 
 - **Notes:**
-  - `JOIN`
-  - `ON`
-  - `INNER JOIN`
-  - *Add notes here...*
+  #### A. Core Concepts: `JOIN`, `ON`, and `INNER JOIN`
+  - **`JOIN`:** Crucial for relational databases with multiple related tables. One table originates in the `FROM` clause (the primary/parent table), while the second table is specified in the `JOIN` clause. 
+    > *Note:* While other types exist (e.g., `LEFT JOIN`, `RIGHT JOIN`), the course focuses specifically on `INNER JOIN`.
+  - **`ON`:** Specifies the matching criteria between tables, linking the identifier column in the first table to the corresponding column in the second table.
+  - **`INNER JOIN`:** Returns only the records that have matching identifiers present in **both** tables. If a record in Table A lacks a matching ID in Table B (or vice versa), the record will be excluded from the final output.
 
+  #### B. Practical Example (Stack Overflow BigQuery Experts)
+  ```python
+  bigquery_experts_query = """
+      SELECT p_a.owner_user_id AS user_id, COUNT(1) AS number_of_answers
+      FROM `bigquery-public-data.stackoverflow.posts_questions` AS p_q
+      INNER JOIN `bigquery-public-data.stackoverflow.posts_answers` AS p_a
+          ON p_q.id = p_a.parent_id
+      WHERE p_q.tags LIKE '%bigquery%'
+      GROUP BY user_id
+  """
+  ```
+
+  - **Breakdown of Query Logic:**
+    - **Linking Tables:** The query joins `posts_questions` (aliased as `p_q`) and `posts_answers` (aliased as `p_a`) where `p_q.id` matches `p_a.parent_id`.
+    - **Dot Notation & Aliases:** Table aliases (`p_q` and `p_a`) are used alongside dot notation to cleanly reference columns from specific tables.
+    - **Filtering:** The `WHERE` clause ensures only questions tagged with `'bigquery'` are considered.
+    - **Aggregation:** Groups results by `user_id` (`owner_user_id`) to count how many answers each user provided (`number_of_answers`).
 ---
 
 > Click any thumbnail above or check out the links in the table to watch!
 
 ---
 
-## 💡 What's Inside & Resources
+## 💡 References :
 - **Jupyter Notebooks:** Complete Kaggle exercises using Google BigQuery and Python (`google.cloud.bigquery`).
-- **Vlog Walkthroughs:** Casual, raw discussions on SQL logic, dataset exploration, and common pitfalls for beginners.
+- **Vlog Walkthroughs:** Casual, raw discussions on SQL logic and dataset exploration.
 - **Reference Docs:** [BigQuery Date and Time Functions Documentation](https://docs.cloud.google.com/bigquery/docs/reference/legacy-sql#dayofweek)
 
 ---
-
-⭐ *Feel free to check out the notebooks or leave a star if you're following along on your SQL journey!*
