@@ -308,21 +308,33 @@ In these videos, I break down what I learned, walk through BigQuery SQL concepts
   - A CTE exists **only** during the execution of the query it is attached to.
   - It cannot be referenced or reused in subsequent, separate queries.
 
-  #### D. Practical CTE Example (Bitcoin Transactions)
+  #### D. Practical CTE Example (Chicago Taxi Trips)
   ```python
-  # Query to select the number of transactions per date, sorted by date
-  query_with_CTE = """
-                    WITH time AS
-                    (
-                       SELECT DATE(block_timestamp) AS trans_date
-                       FROM `bigquery-public-data.crypto_bitcoin.transactions`
-                    )
-                    SELECT COUNT(1) AS transactions,
-                           trans_date
-                    FROM time
-                    GROUP BY trans_date
-                    ORDER BY trans_date
-                    """
+  speeds_query = """
+                 WITH RelevantRides AS
+                 (
+                     SELECT EXTRACT(HOUR FROM trip_start_timestamp) AS hour_of_day,
+                            trip_miles,
+                            trip_seconds
+                     FROM `bigquery-public-data.chicago_taxi_trips.taxi_trips`
+                     WHERE trip_start_timestamp > '2016-01-01' 
+                         AND trip_start_timestamp < '2016-04-01' 
+                         AND trip_seconds > 0 
+                         AND trip_miles > 0
+                 )
+                 SELECT hour_of_day,
+                        COUNT(1) AS num_trips,
+                        3600 * SUM(trip_miles) / SUM(trip_seconds) AS avg_mph
+                 FROM RelevantRides
+                 GROUP BY hour_of_day
+                 ORDER BY hour_of_day
+                 """
+  ```
+  - **Breakdown of Query Logic:**
+    - **Filtering inside the CTE:** Inside the constructed `RelevantRides` CTE, the `WHERE` clause defines the date range for `trip_start_timestamp` while ensuring both `trip_seconds` and `trip_miles` are strictly greater than zero.
+    - **Simplified Main Query:** Referencing the CTE table makes the subsequent execution statement much simpler, focusing on summarizing average miles per hour (`avg_mph`) and the total number of trips (`num_trips`) depending on the hours of the day.
+    - **Efficiency & Readability:** An efficient way to construct code that remains clean, organized, and convenient for readers.
+      
 ---
 
 ### Part 6: Joining Data (Unlisted, 75 mins.)
